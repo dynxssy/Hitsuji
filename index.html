@@ -249,8 +249,8 @@
                     <div class="absolute -inset-4 border border-neutral-800 group-hover:border-hitsuji-accent/50 transition-colors duration-500"></div>
                     
                     <div class="relative w-full max-w-md aspect-[3/4] bg-black overflow-hidden group-hover:grayscale-0 transition-all duration-700 ease-out">
-                        <!-- Path based on VS Code screenshot: images/me_portrait.JPG -->
-                        <img src="images/me_portrait.JPG" alt="Liza Ovcharenko Portrait" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                        <!-- ADDED: loading="lazy" and decode="async" -->
+                        <img src="images/me_portrait.JPG" alt="Liza Ovcharenko Portrait" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" loading="lazy" decode="async" />
                         
                         <!-- Corner Accents -->
                         <div class="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -262,147 +262,144 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section id="work" class="py-32 px-6 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal-on-scroll">
-            <div>
-                <h2 class="text-4xl md:text-6xl font-serif mb-2">Selected Work</h2>
-                <p class="text-hitsuji-accent uppercase tracking-widest text-xs font-bold">Latest Projects</p>
-            </div>
-            <div class="hidden md:block text-right text-gray-500 font-light text-sm max-w-xs">
-                Graphic · Anime · Botanical · Mini <br>
-                Designing custom pieces for every client.
-            </div>
-        </div>
+    <section id="work" class="relative py-32 border-y border-white/5">
+        <!-- Dark Blur Background Layer for the Portfolio Area -->
+        <div class="absolute inset-0 bg-black/85 backdrop-blur-sm -z-10"></div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="px-6 max-w-7xl mx-auto">
+            <!-- Mobile Centering Adjustment: items-center on mobile, items-end on desktop -->
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 reveal-on-scroll">
+                <!-- Text Centering: text-center on mobile, text-left on desktop -->
+                <div class="text-center md:text-left">
+                    <h2 class="text-4xl md:text-6xl font-serif mb-2">Selected Work</h2>
+                    <p class="text-hitsuji-accent uppercase tracking-widest text-xs font-bold">Latest Projects</p>
+                </div>
+                <div class="hidden md:block text-right text-gray-500 font-light text-sm max-w-xs">
+                    Graphic · Anime · Botanical · Mini <br>
+                    Designing custom pieces for every client.
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                 <!-- Item 1: Hummingbird | ADDED: loading="lazy" and decode="async" -->
+                 <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-100">
+                    <img src="images/IMG_7115.JPEG" alt="Hummingbird Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decode="async" />
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Hummingbird</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Watercolor</p>
+                    </div>
+                </div>
+
+                 <!-- Item 2: Mom Heart | ADDED: loading="lazy" and decode="async" -->
+                 <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-200">
+                    <img src="images/IMG_7113.JPG" alt="Barbed Wire Heart" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decode="async" />
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Barbed Heart</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Lettering</p>
+                    </div>
+                </div>
+
+                 <!-- Item 3: Alpha Symbol | ADDED: loading="lazy" and decode="async" -->
+                 <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-300">
+                    <img src="images/IMG_3685.JPG" alt="Alpha Symbol" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decode="async" />
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Symbol</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Minimalist</p>
+                    </div>
+                </div>
+
+                <!-- Item 4: Floral | ADDED: loading="lazy" and decode="async" -->
+                <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-100">
+                    <img src="images/IMG_7117.JPEG" alt="Floral Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decode="async" />
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Floral Composition</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Botanical</p>
+                    </div>
+                </div>
+
+                <!-- Item 5: Anime Glitch | ADDED: loading="lazy" and decode="async" -->
+                <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-200">
+                    <img src="images/IMG_7112.JPEG" alt="Anime Glitch Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decode="async" />
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Horns & Glitch</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Anime Style</p>
+                    </div>
+                </div>
+
+                <!-- Item 6: Graphic/Red Accent | ADDED: loading="lazy" and decode="async" -->
+                <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-300">
+                    <img src="images/IMG_7114.JPEG" alt="Graphic Red Accent Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decode="async" />
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Neo-Traditional</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Color Accent</p>
+                    </div>
+                </div>
+                
+                <!-- Item 7: Dragons | ADDED: loading="lazy" and decode="async" -->
+                 <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-100">
+                    <img src="images/IMG_7110.JPEG" alt="Dragon Tattoos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decode="async" />
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Three Dragons</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Fine Line</p>
+                    </div>
+                </div>
+
+                <!-- Item 8: Rabbit Mask | ADDED: loading="lazy" and decode="async" -->
+                <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-200">
+                    <img src="images/IMG_7111.JPEG" alt="Rabbit Mask Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decode="async" />
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Masked Rabbit</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Graphic / Sketch</p>
+                    </div>
+                </div>
+
+                <!-- Item 9: Reaper Pink Accent | ADDED: loading="lazy" and decode="async" -->
+                <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-300">
+                    <img src="images/IMG_7116.JPEG" alt="Grim Reaper Pink Accent" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" decode="async" />
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Reaper</p>
+                        <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Pink Accent</p>
+                    </div>
+                </div>
+
+            </div>
             
-             <!-- Item 1: Hummingbird | images/IMG_7115.JPEG -->
-             <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-100">
-                <img src="images/IMG_7115.JPEG" alt="Hummingbird Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Hummingbird</p>
-                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Watercolor</p>
-                </div>
+            <div class="mt-16 text-center reveal-on-scroll">
+                 <a href="https://instagram.com/hitsujitt" target="_blank" class="inline-flex items-center gap-2 text-gray-400 hover:text-hitsuji-accent transition-colors uppercase tracking-widest text-sm pb-1 border-b border-transparent hover:border-hitsuji-accent">
+                    See More on Instagram <i class="ph ph-arrow-up-right"></i>
+                </a>
             </div>
-
-             <!-- Item 2: Mom Heart | images/IMG_7113.JPG -->
-             <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-200">
-                <img src="images/IMG_7113.JPG" alt="Barbed Wire Heart" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Barbed Heart</p>
-                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Lettering</p>
-                </div>
-            </div>
-
-             <!-- Item 3: Alpha Symbol | images/IMG_3685.JPG -->
-             <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-300">
-                <img src="images/IMG_3685.JPG" alt="Alpha Symbol" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Symbol</p>
-                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Minimalist</p>
-                </div>
-            </div>
-
-            <!-- Item 4: Floral | images/IMG_7117.JPEG -->
-            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-100">
-                <img src="images/IMG_7117.JPEG" alt="Floral Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Floral Composition</p>
-                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Botanical</p>
-                </div>
-            </div>
-
-            <!-- Item 5: Anime Glitch | images/IMG_7112.JPEG -->
-            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-200">
-                <img src="images/IMG_7112.JPEG" alt="Anime Glitch Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Horns & Glitch</p>
-                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Anime Style</p>
-                </div>
-            </div>
-
-            <!-- Item 6: Graphic/Red Accent | images/IMG_7114.JPEG -->
-            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-300">
-                <img src="images/IMG_7114.JPEG" alt="Graphic Red Accent Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Neo-Traditional</p>
-                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Color Accent</p>
-                </div>
-            </div>
-            
-            <!-- Item 7: Dragons | images/IMG_7110.JPEG -->
-             <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-100">
-                <img src="images/IMG_7110.JPEG" alt="Dragon Tattoos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Three Dragons</p>
-                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Fine Line</p>
-                </div>
-            </div>
-
-            <!-- Item 8: Rabbit Mask | images/IMG_7111.JPEG -->
-            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-200">
-                <img src="images/IMG_7111.JPEG" alt="Rabbit Mask Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Masked Rabbit</p>
-                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Graphic / Sketch</p>
-                </div>
-            </div>
-
-            <!-- Item 9: Reaper Pink Accent | images/IMG_7116.JPEG -->
-            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-300">
-                <img src="images/IMG_7116.JPEG" alt="Grim Reaper Pink Accent" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
-                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Reaper</p>
-                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Pink Accent</p>
-                </div>
-            </div>
-
-        </div>
-        
-        <div class="mt-16 text-center reveal-on-scroll">
-             <a href="https://instagram.com/hitsujitt" target="_blank" class="inline-flex items-center gap-2 text-gray-400 hover:text-hitsuji-accent transition-colors uppercase tracking-widest text-sm pb-1 border-b border-transparent hover:border-hitsuji-accent">
-                See More on Instagram <i class="ph ph-arrow-up-right"></i>
-            </a>
         </div>
     </section>
 
-    <!-- Experience Section (Updated with Mobile-Optimized Background) -->
-    <!-- CORRECTED PATH: images/background_working.jpg -->
+    <!-- Experience Section (Optimized Background Loading) -->
     <section id="experience" class="relative py-32 px-6 border-y border-white/5">
-        <!-- Mobile-Optimized Background Container -->
-        <!-- Use 'fixed' position on container for smoother mobile parallax simulation and prevent jitter -->
-        <div class="fixed inset-0 -z-10">
-            <!-- Background Image: object-cover ensures it fills without distortion, object-center centers it -->
-            <div class="absolute inset-0 w-full h-full">
-                <img src="images/background_working.gif" alt="Background" class="w-full h-full object-cover object-center opacity-0 transition-opacity duration-500" onload="this.classList.remove('opacity-0')">
-                <!-- Dark Overlay -->
-                <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-            </div>
+        <!-- Optimized Background Container (Only using one fixed image element) -->
+        <div class="fixed inset-0 -z-10 will-change-transform">
+            <!-- ADDED: loading="lazy" and decode="async" -->
+            <img 
+                src="images/background_working.gif" 
+                alt="Background" 
+                class="w-full h-full object-cover object-center opacity-0 transition-opacity duration-500" 
+                onload="this.classList.remove('opacity-0')"
+                loading="lazy"
+                decode="async"
+            >
+            <!-- Dark Overlay -->
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
         </div>
         
-        <!-- Since we used fixed positioning for the background, we need a localized background for this section specifically to mask it when not in view, 
-             OR we use the standard clip-path approach. 
-             HOWEVER, simpler approach for "fixed background inside section" without global bleed:
-             We revert to absolute positioning BUT remove 'bg-fixed' and use a transform-based parallax if we want perfection,
-             OR we just use standard 'bg-cover' for mobile to stop the zoom/jitter.
-             
-             DECISION: Disabling 'bg-fixed' on mobile is the industry standard fix for this iOS issue.
-        -->
-        
-        <!-- Re-implementing with Tailwind md:bg-fixed (fixed only on desktop) -->
-        <div class="absolute inset-0 -z-10">
-             <div class="absolute inset-0 bg-center bg-cover bg-no-repeat bg-local md:bg-fixed" style="background-image: url('images/background_working.jpg');"></div>
-             <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-        </div>
+        <!-- REMOVED redundant background div implementation for md:bg-fixed -->
 
         <div class="max-w-4xl mx-auto relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
@@ -523,7 +520,8 @@
         // Intersection Observer for Scroll Animations
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: "0px 0px -50px 0px"
+            // Negative margin makes the element visible slightly before it enters the viewport center
+            rootMargin: "0px 0px -50px 0px" 
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -535,6 +533,7 @@
                     const lines = entry.target.querySelectorAll('.timeline-line');
                     lines.forEach(line => line.classList.add('grow'));
                     
+                    // Stop observing once visible
                     observer.unobserve(entry.target);
                 }
             });
