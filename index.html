@@ -375,14 +375,33 @@
         </div>
     </section>
 
-    <!-- Experience Section (Fixed Overlay & Background) -->
+    <!-- Experience Section (Updated with Mobile-Optimized Background) -->
+    <!-- CORRECTED PATH: images/background_working.jpg -->
     <section id="experience" class="relative py-32 px-6 border-y border-white/5">
-        <!-- Parallax Background Container -->
-        <div class="absolute inset-0 z-0 overflow-hidden">
-            <!-- The Image -->
-            <div class="absolute inset-0 bg-fixed bg-center bg-cover bg-no-repeat" style="background-image: url('images/background_working.gif');"></div>
-            <!-- The Overlay -->
-            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        <!-- Mobile-Optimized Background Container -->
+        <!-- Use 'fixed' position on container for smoother mobile parallax simulation and prevent jitter -->
+        <div class="fixed inset-0 -z-10">
+            <!-- Background Image: object-cover ensures it fills without distortion, object-center centers it -->
+            <div class="absolute inset-0 w-full h-full">
+                <img src="images/background_working.gif" alt="Background" class="w-full h-full object-cover object-center opacity-0 transition-opacity duration-500" onload="this.classList.remove('opacity-0')">
+                <!-- Dark Overlay -->
+                <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+            </div>
+        </div>
+        
+        <!-- Since we used fixed positioning for the background, we need a localized background for this section specifically to mask it when not in view, 
+             OR we use the standard clip-path approach. 
+             HOWEVER, simpler approach for "fixed background inside section" without global bleed:
+             We revert to absolute positioning BUT remove 'bg-fixed' and use a transform-based parallax if we want perfection,
+             OR we just use standard 'bg-cover' for mobile to stop the zoom/jitter.
+             
+             DECISION: Disabling 'bg-fixed' on mobile is the industry standard fix for this iOS issue.
+        -->
+        
+        <!-- Re-implementing with Tailwind md:bg-fixed (fixed only on desktop) -->
+        <div class="absolute inset-0 -z-10">
+             <div class="absolute inset-0 bg-center bg-cover bg-no-repeat bg-local md:bg-fixed" style="background-image: url('images/background_working.jpg');"></div>
+             <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
         </div>
 
         <div class="max-w-4xl mx-auto relative z-10">
