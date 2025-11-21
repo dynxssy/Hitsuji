@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liza Ovcharenko | Hitsuji Tattoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cinzel', 'serif'],
+                    },
+                    colors: {
+                        'hitsuji-black': '#0a0a0a',
+                        'hitsuji-gray': '#1a1a1a',
+                        'hitsuji-white': '#f5f5f5',
+                        'hitsuji-accent': '#e11d48', 
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'grain': 'grain 8s steps(10) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        grain: {
+                            '0%, 100%': { transform: 'translate(0, 0)' },
+                            '10%': { transform: 'translate(-5%, -10%)' },
+                            '20%': { transform: 'translate(-15%, 5%)' },
+                            '30%': { transform: 'translate(7%, -25%)' },
+                            '40%': { transform: 'translate(-5%, 25%)' },
+                            '50%': { transform: 'translate(-15%, 10%)' },
+                            '60%': { transform: 'translate(15%, 0%)' },
+                            '70%': { transform: 'translate(0%, 15%)' },
+                            '80%': { transform: 'translate(3%, 35%)' },
+                            '90%': { transform: 'translate(-10%, 10%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth scrolling & Scrollbar */
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e11d48; }
+        
+        /* Noise Texture Overlay - Smaller & Subtler */
+        .noise-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.015; /* Reduced opacity */
+            overflow: hidden;
+        }
+        .noise {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            /* Increased baseFrequency to make grain smaller/finer */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+            animation: grain 8s steps(10) infinite;
+        }
+
+        /* Reveal Animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger Delays */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+        
+        /* Button Hover Fill Effect */
+        .btn-hover-slide {
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+        .btn-hover-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+        .btn-hover-slide:hover::before {
+            transform: translateX(100%);
+        }
+        .btn-hover-slide:hover {
+            color: #000 !important;
+        }
+
+        /* Magnetic Button Effect container */
+        .magnetic-wrap {
+            display: inline-block;
+            /* Ensure button moves smoothly */
+            will-change: transform;
+        }
+        .magnetic-btn {
+            will-change: transform;
+        }
+
+        /* Timeline Animation */
+        .timeline-line {
+            height: 0;
+            transition: height 1.5s ease-out;
+        }
+        .timeline-line.grow {
+            height: 100%;
+        }
+
+        /* Letter spacing tweaks for Cinzel */
+        h1, h2, .font-serif { letter-spacing: -0.02em; }
+    </style>
+</head>
+<body class="bg-hitsuji-black text-hitsuji-white antialiased selection:bg-hitsuji-accent selection:text-white overflow-x-hidden">
+
+    <!-- Noise Overlay -->
+    <div class="noise-wrapper"><div class="noise"></div></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-hitsuji-black/80 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-serif tracking-widest hover:text-hitsuji-accent transition-colors relative group">
+                HITSUJI
+                <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-hitsuji-accent transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            
+            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-wider text-gray-400 font-medium">
+                <a href="#about" class="hover:text-white transition-colors relative group">About<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span></a>
+                <a href="#work" class="hover:text-white transition-colors relative group">Work<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span></a>
+                <a href="#experience" class="hover:text-white transition-colors relative group">Experience<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span></a>
+                <a href="#contact" class="hover:text-white transition-colors relative group">Contact<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span></a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-2xl hover:text-hitsuji-accent transition-colors" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-hitsuji-gray border-b border-neutral-800 p-4 animate-fade-in">
+            <div class="flex flex-col space-y-4 text-center text-sm uppercase tracking-wider">
+                <a href="#about" class="py-2 hover:text-hitsuji-accent" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
+                <a href="#work" class="py-2 hover:text-hitsuji-accent" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Work</a>
+                <a href="#experience" class="py-2 hover:text-hitsuji-accent" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Experience</a>
+                <a href="#contact" class="py-2 hover:text-hitsuji-accent" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 relative overflow-hidden">
+        <!-- Floating Orbs -->
+        <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-hitsuji-accent/10 rounded-full blur-[100px] animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] animate-float" style="animation-delay: -3s;"></div>
+
+        <div class="z-10 max-w-4xl perspective-1000">
+            <p class="text-hitsuji-accent uppercase tracking-[0.4em] text-xs md:text-sm mb-6 reveal-on-scroll">Dublin, Ireland</p>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-9xl font-serif font-bold mb-6 tracking-tighter leading-[0.9]">
+                <span class="block reveal-text overflow-hidden"><span class="block translate-y-full transition-transform duration-1000 delay-100">LIZA</span></span>
+                <span class="block reveal-text overflow-hidden"><span class="block translate-y-full transition-transform duration-1000 delay-300">OVCHARENKO</span></span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-400 font-light mb-12 reveal-on-scroll delay-300 flex items-center justify-center gap-3">
+                <span class="h-[1px] w-8 bg-neutral-700"></span>
+                <span class="text-white font-normal">HITSUJI</span> &mdash; TATTOO ARTIST
+                <span class="h-[1px] w-8 bg-neutral-700"></span>
+            </p>
+
+            <div class="flex flex-col md:flex-row gap-6 justify-center items-center reveal-on-scroll delay-500">
+                <div class="magnetic-wrap">
+                    <a href="#contact" class="magnetic-btn btn-hover-slide relative inline-flex items-center justify-center px-10 py-4 border border-white text-white bg-transparent uppercase tracking-widest text-sm font-semibold group">
+                        <span class="relative z-10">Book Session</span>
+                    </a>
+                </div>
+                <a href="#work" class="group px-8 py-3 text-gray-400 hover:text-white transition-colors uppercase tracking-widest text-sm flex items-center gap-2">
+                    Portfolio <i class="ph ph-arrow-down group-hover:translate-y-1 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6 bg-neutral-900/30 border-t border-white/5">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1 reveal-on-scroll">
+                <h2 class="text-4xl md:text-5xl font-serif mb-8">Art & <span class="text-hitsuji-accent italic">Skin</span></h2>
+                <div class="space-y-6 text-gray-300 leading-relaxed font-light text-lg">
+                    <p>
+                        Hi! I'm <strong class="text-white font-semibold">Liza</strong> (or Elizabeth) — a tattoo artist from Ukraine, bringing unique stories to life on skin in Dublin.
+                    </p>
+                    <p>
+                        My signature is <strong class="text-white font-semibold">graphic work</strong> infused with deliberate color accents. Whether it's anime-inspired, botanical, or fine-line mini tattoos, I focus on aesthetics that harmonize with your body's natural flow.
+                    </p>
+                    <p class="border-l-2 border-hitsuji-accent pl-4 italic text-gray-400">
+                        "I create tattoos that highlight individuality and tell their own story."
+                    </p>
+                </div>
+                
+                <!-- Skills Tags -->
+                <div class="mt-10">
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-1.5 border border-neutral-800 bg-neutral-900/50 rounded-full text-xs uppercase text-gray-400 hover:border-hitsuji-accent hover:text-white transition-colors cursor-default">Drawing</span>
+                        <span class="px-4 py-1.5 border border-neutral-800 bg-neutral-900/50 rounded-full text-xs uppercase text-gray-400 hover:border-hitsuji-accent hover:text-white transition-colors cursor-default">Creativity</span>
+                        <span class="px-4 py-1.5 border border-neutral-800 bg-neutral-900/50 rounded-full text-xs uppercase text-gray-400 hover:border-hitsuji-accent hover:text-white transition-colors cursor-default">Photography</span>
+                        <span class="px-4 py-1.5 border border-neutral-800 bg-neutral-900/50 rounded-full text-xs uppercase text-gray-400 hover:border-hitsuji-accent hover:text-white transition-colors cursor-default">English</span>
+                        <span class="px-4 py-1.5 border border-neutral-800 bg-neutral-900/50 rounded-full text-xs uppercase text-gray-400 hover:border-hitsuji-accent hover:text-white transition-colors cursor-default">Ukrainian</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile Image -->
+            <div class="order-1 md:order-2 flex justify-center reveal-on-scroll delay-200">
+                <div class="relative group">
+                    <!-- Decorative Frame Offset -->
+                    <div class="absolute -inset-4 border border-neutral-800 group-hover:border-hitsuji-accent/50 transition-colors duration-500"></div>
+                    
+                    <div class="relative w-full max-w-md aspect-[3/4] bg-black overflow-hidden group-hover:grayscale-0 transition-all duration-700 ease-out">
+                        <!-- Path based on VS Code screenshot: images/me_portrait.JPG -->
+                        <img src="images/me_portrait.JPG" alt="Liza Ovcharenko Portrait" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                        
+                        <!-- Corner Accents -->
+                        <div class="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-white opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="work" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal-on-scroll">
+            <div>
+                <h2 class="text-4xl md:text-6xl font-serif mb-2">Selected Work</h2>
+                <p class="text-hitsuji-accent uppercase tracking-widest text-xs font-bold">Latest Projects</p>
+            </div>
+            <div class="hidden md:block text-right text-gray-500 font-light text-sm max-w-xs">
+                Graphic · Anime · Botanical · Mini <br>
+                Designing custom pieces for every client.
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+             <!-- Item 1: Hummingbird | images/IMG_7115.JPEG -->
+             <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-100">
+                <img src="images/IMG_7115.JPEG" alt="Hummingbird Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Hummingbird</p>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Watercolor</p>
+                </div>
+            </div>
+
+             <!-- Item 2: Mom Heart | images/IMG_7113.JPG -->
+             <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-200">
+                <img src="images/IMG_7113.JPG" alt="Barbed Wire Heart" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Barbed Heart</p>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Lettering</p>
+                </div>
+            </div>
+
+             <!-- Item 3: Alpha Symbol | images/IMG_3685.JPG -->
+             <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-300">
+                <img src="images/IMG_3685.JPG" alt="Alpha Symbol" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Symbol</p>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Minimalist</p>
+                </div>
+            </div>
+
+            <!-- Item 4: Floral | images/IMG_7117.JPEG -->
+            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-100">
+                <img src="images/IMG_7117.JPEG" alt="Floral Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Floral Composition</p>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Botanical</p>
+                </div>
+            </div>
+
+            <!-- Item 5: Anime Glitch | images/IMG_7112.JPEG -->
+            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-200">
+                <img src="images/IMG_7112.JPEG" alt="Anime Glitch Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Horns & Glitch</p>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Anime Style</p>
+                </div>
+            </div>
+
+            <!-- Item 6: Graphic/Red Accent | images/IMG_7114.JPEG -->
+            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-300">
+                <img src="images/IMG_7114.JPEG" alt="Graphic Red Accent Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Neo-Traditional</p>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Color Accent</p>
+                </div>
+            </div>
+            
+            <!-- Item 7: Dragons | images/IMG_7110.JPEG -->
+             <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-100">
+                <img src="images/IMG_7110.JPEG" alt="Dragon Tattoos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Three Dragons</p>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Fine Line</p>
+                </div>
+            </div>
+
+            <!-- Item 8: Rabbit Mask | images/IMG_7111.JPEG -->
+            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-200">
+                <img src="images/IMG_7111.JPEG" alt="Rabbit Mask Tattoo" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Masked Rabbit</p>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Graphic / Sketch</p>
+                </div>
+            </div>
+
+            <!-- Item 9: Reaper Pink Accent | images/IMG_7116.JPEG -->
+            <div class="gallery-item group relative aspect-[4/5] bg-neutral-900 overflow-hidden cursor-pointer reveal-on-scroll delay-300">
+                <img src="images/IMG_7116.JPEG" alt="Grim Reaper Pink Accent" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p class="text-white font-serif text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-500">Reaper</p>
+                    <p class="text-gray-400 text-xs uppercase tracking-wider translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">Pink Accent</p>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="mt-16 text-center reveal-on-scroll">
+             <a href="https://instagram.com/hitsujitt" target="_blank" class="inline-flex items-center gap-2 text-gray-400 hover:text-hitsuji-accent transition-colors uppercase tracking-widest text-sm pb-1 border-b border-transparent hover:border-hitsuji-accent">
+                See More on Instagram <i class="ph ph-arrow-up-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Experience Section (Fixed Overlay & Background) -->
+    <section id="experience" class="relative py-32 px-6 border-y border-white/5">
+        <!-- Parallax Background Container -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <!-- The Image -->
+            <div class="absolute inset-0 bg-fixed bg-center bg-cover bg-no-repeat" style="background-image: url('images/background_working.gif');"></div>
+            <!-- The Overlay -->
+            <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                
+                <!-- Education Column -->
+                <div class="reveal-on-scroll">
+                    <h3 class="text-2xl font-serif mb-12 flex items-center gap-3 text-white/90">
+                        <i class="ph ph-student text-hitsuji-accent"></i> Education
+                    </h3>
+                    
+                    <!-- Timeline Container -->
+                    <div class="relative pl-8 border-l border-neutral-800">
+                        <!-- Animated Line overlay -->
+                        <div class="absolute -left-[0.5px] top-0 w-[1px] bg-hitsuji-accent timeline-line"></div>
+                        
+                        <div class="mb-12 relative flex items-start group">
+                            <!-- Dot -->
+                            <div class="absolute -left-[9px] top-1 w-[18px] h-[18px] bg-black border border-neutral-600 rounded-full group-hover:border-hitsuji-accent group-hover:scale-110 transition-all duration-300 z-10 flex-shrink-0"></div>
+                            <!-- Content: Padding left to create space from the dot/line -->
+                            <div class="pl-6"> 
+                                <h4 class="text-xl font-bold text-white mb-1 leading-tight">VEAN Tattoo School</h4>
+                                <p class="text-gray-300 text-sm uppercase tracking-wider">Specialized Training</p>
+                            </div>
+                        </div>
+                        
+                        <div class="relative flex items-start group">
+                            <!-- Dot -->
+                            <div class="absolute -left-[9px] top-1 w-[18px] h-[18px] bg-black border border-neutral-600 rounded-full group-hover:border-hitsuji-accent group-hover:scale-110 transition-all duration-300 z-10 flex-shrink-0"></div>
+                            <!-- Content -->
+                            <div class="pl-6">
+                                <h4 class="text-xl font-bold text-white mb-1 leading-tight">Kyiv National University</h4>
+                                <p class="text-gray-300 text-sm uppercase tracking-wider">Technology and Design</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience Column -->
+                <div class="reveal-on-scroll delay-200">
+                    <h3 class="text-2xl font-serif mb-12 flex items-center gap-3 text-white/90">
+                        <i class="ph ph-briefcase text-hitsuji-accent"></i> Experience
+                    </h3>
+                    
+                    <!-- Timeline Container -->
+                    <div class="relative pl-8 border-l border-neutral-800">
+                         <!-- Animated Line overlay -->
+                         <div class="absolute -left-[0.5px] top-0 w-[1px] bg-hitsuji-accent timeline-line" style="transition-delay: 0.3s"></div>
+
+                        <div class="relative flex items-start group">
+                            <!-- Dot -->
+                            <div class="absolute -left-[9px] top-1 w-[18px] h-[18px] bg-black border border-neutral-600 rounded-full group-hover:border-hitsuji-accent group-hover:scale-110 transition-all duration-300 z-10 flex-shrink-0"></div>
+                            <!-- Content -->
+                            <div class="pl-6">
+                                <h4 class="text-xl font-bold text-white mb-1 leading-tight">Tattoo Artist</h4>
+                                <p class="text-hitsuji-accent text-sm mb-4 uppercase tracking-wider">VEAN Tattoo Studio</p>
+                                <p class="text-gray-300 text-sm leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity font-medium drop-shadow-md">
+                                    Started as a studio artist in Ukraine, refined my technique through freelance projects, and now creating art in Dublin.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 relative overflow-hidden min-h-[80vh] flex items-center justify-center">
+         <!-- Background Gradient -->
+         <div class="absolute inset-0 bg-gradient-to-b from-black via-neutral-900/20 to-black z-0"></div>
+        
+        <div class="max-w-3xl mx-auto text-center relative z-10 reveal-on-scroll">
+            <div class="inline-block mb-4 p-2 px-4 border border-neutral-800 rounded-full text-xs uppercase tracking-widest text-hitsuji-accent bg-black/50 backdrop-blur-sm">
+                Now Booking
+            </div>
+            <h2 class="text-5xl md:text-7xl font-serif mb-8 tracking-tight">Ready for your <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">New Ink?</span></h2>
+            <p class="text-gray-400 mb-12 font-light text-lg max-w-xl mx-auto">
+                Currently booking in <strong class="text-white">Dublin</strong>. Let's discuss your idea, placement, and design.
+            </p>
+
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-16">
+                <a href="https://instagram.com/hitsujitt" target="_blank" class="btn-hover-slide flex items-center justify-center gap-3 bg-neutral-900 border border-neutral-700 px-10 py-5 hover:border-hitsuji-accent transition-all group w-full md:w-auto">
+                    <i class="ph ph-instagram-logo text-2xl text-gray-400 group-hover:text-black transition-colors"></i>
+                    <span class="uppercase tracking-widest text-sm font-bold">@hitsujitt</span>
+                </a>
+                <a href="mailto:lizaovcharenko321@gmail.com" class="btn-hover-slide flex items-center justify-center gap-3 bg-neutral-900 border border-neutral-700 px-10 py-5 hover:border-hitsuji-accent transition-all group w-full md:w-auto">
+                    <i class="ph ph-envelope-simple text-2xl text-gray-400 group-hover:text-black transition-colors"></i>
+                    <span class="uppercase tracking-widest text-sm font-bold">Email Me</span>
+                </a>
+            </div>
+
+            <div class="text-gray-600 font-mono text-sm reveal-on-scroll delay-200">
+                <p class="mb-2 uppercase text-xs tracking-widest">Direct Line</p>
+                <p class="text-xl text-neutral-400 hover:text-white transition-colors cursor-pointer">+353 (87) 278 3902</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-neutral-900 bg-black py-10 px-6 text-center">
+        <div class="flex flex-col items-center gap-4">
+            <a href="#" class="text-2xl font-serif tracking-widest text-neutral-800 hover:text-neutral-600 transition-colors">HITSUJI</a>
+            <p class="text-neutral-700 text-xs uppercase tracking-widest">
+                &copy; 2025 Liza Ovcharenko. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initial Hero Text Animation on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            const texts = document.querySelectorAll('.reveal-text span');
+            texts.forEach(text => {
+                text.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    
+                    // If it's the timeline section, trigger line growth
+                    const lines = entry.target.querySelectorAll('.timeline-line');
+                    lines.forEach(line => line.classList.add('grow'));
+                    
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Magnetic Button Effect
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+        
+        // Add lerp function for smooth interpolation
+        const lerp = (start, end, factor) => start + (end - start) * factor;
+
+        magneticBtns.forEach(btn => {
+            // State for the current button
+            const state = {
+                x: 0,
+                y: 0,
+                targetX: 0,
+                targetY: 0,
+                isHovering: false,
+                rafId: null
+            };
+
+            const animate = () => {
+                if (!state.isHovering && Math.abs(state.x) < 0.1 && Math.abs(state.y) < 0.1) {
+                    // Stop animation when back at start and not hovering
+                    btn.style.transform = 'translate(0px, 0px)';
+                    return;
+                }
+
+                // Smoothly interpolate current position towards target
+                state.x = lerp(state.x, state.targetX, 0.1);
+                state.y = lerp(state.y, state.targetY, 0.1);
+
+                btn.style.transform = `translate(${state.x}px, ${state.y}px)`;
+                state.rafId = requestAnimationFrame(animate);
+            };
+
+            btn.addEventListener('mousemove', function(e) {
+                const rect = btn.getBoundingClientRect();
+                // Calculate distance from center
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                // Update target position (divided by 2 for subtle effect)
+                state.targetX = x * 0.3;
+                state.targetY = y * 0.3;
+
+                if (!state.isHovering) {
+                    state.isHovering = true;
+                    state.rafId = requestAnimationFrame(animate);
+                }
+            });
+
+            btn.addEventListener('mouseleave', function() {
+                state.isHovering = false;
+                state.targetX = 0;
+                state.targetY = 0;
+                // Animation loop continues until x/y are close to 0
+            });
+        });
+    </script>
+</body>
+</html>
